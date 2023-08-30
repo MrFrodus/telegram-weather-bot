@@ -59,7 +59,8 @@ bot.on("callback_query", async (msg) => {
   const text = msg.message!.text;
 
   const weatherData = await getWeather(text!, days);
-  bot.sendMessage(
+
+  await bot.sendMessage(
     chatId,
     `Forecast for ` +
       (days === 2
@@ -70,6 +71,7 @@ bot.on("callback_query", async (msg) => {
         ? `the next week`
         : "")
   );
+
   if (days === 2) {
     return bot.sendMessage(
       chatId,
@@ -80,7 +82,7 @@ bot.on("callback_query", async (msg) => {
     \nHumidity: ${weatherData.forecast.forecastday[1].day.avghumidity}
     \nHumidity: ${weatherData.forecast.forecastday[1].day.avghumidity}`
     );
-  } 
+  }
 
   weatherData.forecast.forecastday.map((day: any) => {
     return bot.sendMessage(
